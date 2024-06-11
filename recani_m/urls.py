@@ -19,5 +19,5 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('recani.urls')),
+    path('', include(('authz.urls'), namespace='authz'))
 ]

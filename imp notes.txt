@@ -1,0 +1,4 @@
+--> The indexing in the primary key starts from 0 in the General datas table so when accessing the anime on the basis of the index
+	generated from the similarity matrix it should be decremented by 1 first.
+
+--> genre column in general data has heck ton of entries
