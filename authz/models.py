@@ -15,6 +15,7 @@ class GeneralData(models.Model):
     scored_by = models.FloatField()
     favorites = models.IntegerField()
     aired = models.CharField(max_length=100)
+    imagelink = models.CharField(max_length=255, default='un-available', null=True)
 
     studio = models.ForeignKey(to='Studio', null=True, on_delete=models.CASCADE )
     demographic = models.ForeignKey(to='Demographic', null=True, on_delete=models.CASCADE)
@@ -58,3 +59,6 @@ class Source(models.Model):
 
 class TypeOf(models.Model):
     name = models.CharField(max_length=255, unique=True, default='Unknown Type')
+
+class AdminChoices(models.Model):
+    index = models.IntegerField()

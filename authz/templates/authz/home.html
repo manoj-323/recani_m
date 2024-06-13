@@ -14,7 +14,7 @@
     <header>
       <div class="logo">
         <a href="{% url 'authz:home' %}"
-          ><img src="{% static 'images/logo.png' %}" alt="Logo"
+          ><img src="{% static '\authz\pics\logo.jpg' %}" alt="Logo"
         /></a>
       </div>
       <nav>
@@ -29,64 +29,63 @@
     </header>
     <main>
       <section class="welcome">
-        <h1>Welcome to Rekani</h1>
+        <h1>Welcome to Recani</h1>
         <p>
-          Discover our amazing recommendation system designed to enhance your
-          experience.
+          Discover our amazing recommendation system designed to best fit your
+          expectation's.
         </p>
       </section>
 
       <section class="features">
-        <h2>Our Features</h2>
+        <h2>Features</h2>
         <div class="feature">
-          <h3>Feature 1</h3>
-          <p>Description of Feature 1.</p>
-        </div>
-        <div class="feature">
-          <h3>Feature 2</h3>
-          <p>Description of Feature 2.</p>
-        </div>
-        <div class="feature">
-          <h3>Feature 3</h3>
-          <p>Description of Feature 3.</p>
+          <p>-> Dynamically search for anime.</p>
+          <p>
+            -> Automatically lead towards the anime you are subconcially thinking
+            about.
+          </p>
+          <p>-> Judge the anime based on the extensive information available.</p>
         </div>
       </section>
 
       <section class="cta">
-        <h2>Get Started</h2>
-        <a href="{% url 'authz:signup' %}" class="btn">Sign Up Now</a>
+        <div id="btn-container">
+          <a href="{% url 'authz:signup' %}" class="btn">Sign Up Now</a>
+        </div>
       </section>
 
       <section class="testimonials">
         <h2>What Our Users Say</h2>
         <div class="testimonial">
           <p>"This system is fantastic! Highly recommend it."</p>
-          <p>- User 1</p>
+          <p>- manish</p>
         </div>
         <div class="testimonial">
           <p>"A game-changer in recommendations."</p>
-          <p>- User 2</p>
+          <p>- manoj</p>
         </div>
       </section>
 
-      <section class="news">
-        <h2>Latest Updates</h2>
-        <article>
-          <h3>Update 1</h3>
-          <p>Details about the latest update.</p>
-        </article>
-        <article>
-          <h3>Update 2</h3>
-          <p>Details about another update.</p>
-        </article>
+      <section class="top-anime-list">
+        <h2>Admins Recommendations</h2>
+        <div id="top-anime-list-container">
+          {% for anime in anime_data %}
+          <div class="anime-block">
+            <img
+              src="{{ anime.imagelink }}"
+              alt="anime pfp" />
+            <div class="anime-name">{{ anime.name }}</div>
+          </div>
+          {% endfor %}
+        </div>
       </section>
     </main>
     <footer>
       <div class="contact">
         <h3>Contact Us</h3>
-        <p>Email: info@rekani.com</p>
+        <p>Email: info@recani.com</p>
         <p>Phone: +123 456 7890</p>
-        <p>Address: 123 Rekani Street, City, Country</p>
+        <p>Address: 123 Recani Street, City, Country</p>
       </div>
       <div class="social-media">
         <h3>Follow Us</h3>

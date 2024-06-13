@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    {% load static %}
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    {% load static %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'authz/css/temp.css' %}" />
+
+    <title>Document</title>
+  </head>
+  <body>
+    <section class="top-anime-list">
+      <div id="top-anime-list-container">
+        <div class="anime-block">
+          <img
+            src="/static/C:\Users\22213\OneDrive\Desktop\projects\recani_m\authz\static\authz\pics\68095.jpg"
+            alt="anime pfp" />
+          <div class="anime-name">{{ anime_data.name }}</div>
+        </div>
+      </div>
+    </section>
+  </body>
+</html>
