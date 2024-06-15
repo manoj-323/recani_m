@@ -1,12 +1,44 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    {% load static %}
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Signup</title>
+    <link rel="stylesheet" href="{% static 'authz/css/signup.css' %}">
 </head>
 <body>
-    signup-page
-    <a href="{% url 'authz:login' %}">login</a>
+    <header>
+        <div class="logo">
+            <a href="{% url 'authz:home' %}">
+                <img src="{% static 'authz/pics/logo.jpg' %}" alt="Logo">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'authz:home' %}">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="{% url 'authz:login' %}">Login</a></li>
+                <li><a href="{% url 'authz:signup' %}">Signup</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="main">
+        <div class="signup-container">
+            <div class="signup-box">
+                <h2 style="text-align: center">Signup</h2>
+                <form method="post">
+                    {% csrf_token %}
+                    <div class="input-group">
+                        {{ form.as_p }}
+                    </div>
+                    <button type="submit">Create Account</button>
+                </form>
+                <p class="redirect-link">Already have an account? <a href="{% url 'authz:login' %}">Login here</a></p>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

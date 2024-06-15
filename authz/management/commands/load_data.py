@@ -15,7 +15,8 @@ class Command(BaseCommand):
         with open(csv_file, newline='', encoding='utf-8') as file:
             reader = csv.DictReader(file)
             for row in reader:
-                unique_id = row['unique_id']
+                unique_id = int(row['unique_id']) + 1
+                print(unique_id)
 
                 if not GeneralData.objects.filter(unique_id=unique_id).exists():
                     studio, _ = Studio.objects.get_or_create(name=row.get('studios', 'Unknown Studio'))

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Home</title>
+    <link rel="stylesheet" href="{% static 'authz/css/user_home.css' %}">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="{% url 'authz:home' %}">
+                <img src="{% static 'authz/pics/logo.jpg' %}" alt="Logo">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'authz:home' %}">Home</a></li>
+                <li><a href="{% url 'authz:signout' %}">Logout</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="user-info">
+            <h1>Welcome, {{ user.username }}</h1>
+            <p>Email: {{ user.email }}</p>
+            <p>Date Joined: {{ user.date_joined }}</p>
+        </section>
+
+        <a href="{% url 'recani:initialization-page' %}">lets gooo</a>
+        
+        <section class="user-actions">
+            <h2>Your Actions</h2>
+            <ul>
+                <li><a href="#">View your profile</a></li>
+                <li><a href="#">Edit your profile</a></li>
+                <li><a href="#">Your Recommendations</a></li>
+            </ul>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Recani. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% load static %}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ show.name }}</title>
+    <link rel="stylesheet" href="{% static 'recani/css/show_details.css' %}">
+</head>
+<body>
+    <div class="show-detail-container">
+        <img src="{{ show.imagelink }}" alt="{{ show.name }}" class="show-image">
+        <div class="show-info">
+            <h2>{{ show.name }}</h2>
+            <h2>{{ show.name_english }}</h2>
+            <p>{{ show.synopsis }}</p>
+            <p>Genre: {% for genre in show.genre.all %}{{ genre.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+            <p>Demographic: {{ show.demographic.name }}</p>
+            <p>Rating: {{ show.rating.name }}</p>
+            <p>Popularity: {{ show.popularity }}</p>
+            <p>Ranked: {{ show.ranked }}</p>
+            <p>Members: {{ show.members }}</p>
+            <p>Total Episodes: {{ show.total_episodes }}</p>
+            <p>Premiered: {{ show.premiered }}</p>
+            <p>Duration per Episode: {{ show.duration_per_ep }}</p>
+            <p>Favorites: {{ show.favorites }}</p>
+            <p>Aired: {{ show.aired }}</p>
+            <p>Studio: {{ show.studio.name }}</p>
+            <p>Watching: {{ show.watching }}</p>
+            <p>Completed: {{ show.completed }}</p>
+            <p>On Hold: {{ show.on_hold }}</p>
+            <p>Dropped: {{ show.dropped }}</p>
+            <p>Plan to Watch: {{ show.plan_to_watch }}</p>
+            <p>Total: {{ show.total }}</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,4 +1,5 @@
---> The indexing in the primary key starts from 0 in the General datas table so when accessing the anime on the basis of the index
-	generated from the similarity matrix it should be decremented by 1 first.
-
 --> genre column in general data has heck ton of entries
+
+--> make the unique_id in the table start from 0 rather than one because you see your similarity matrix is n*n but you will be enumerating it so the index
+	that will be generated will be from 0 and onwords see the so if for anime an anime lets say im confused .........................................
+	yup i am right it is as i said keep the indexing of the unique_id from 0.
