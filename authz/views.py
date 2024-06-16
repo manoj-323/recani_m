@@ -1,23 +1,11 @@
 from django.shortcuts import render, redirect
-from .models import GeneralData, AdminChoices
+from .models import GeneralData, AdminChoices, Saved_anime
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login as loginUser, logout
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
 
 # Create your views here.
-
-def temp(request):
-    if request.method == 'GET':
-        anime_data =  GeneralData.objects.select_related('studio', 'demographic', 'rating', 'source', 'typeof').get(unique_id=1)
-        genres = [x.name for x in anime_data.genre.all()]
-        context = {
-            'anime_data' : anime_data,
-            'genres' : genres
-        }
-        return render(request, 'authz/temp.html', context=context)
-    else:
-        return render(request, 'authz/temp.html')
 
 def home(request):
     if request.method == 'GET':
@@ -79,9 +67,7 @@ def signout(request):
     logout(request=request)
     return redirect('authz:home')
 
-@login_required(login_url='authz:signup')
+@login_required
 def user_home(request):
-    return render(request, 'authz/user_home.html')
-
-# def logout(request):
-#     return render(request, 'authz/home.html')
+    saved_anime = Saved_anime.objects.filter(user=request.user)
+    return render(request, 'authz/user_home.html', {'saved_anime': saved_anime})

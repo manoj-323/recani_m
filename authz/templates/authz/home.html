@@ -1,102 +1,96 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% load static %}
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="{% static 'authz/css/home.css' %}" />
-    <title>Document</title>
-  </head>
-  <body>
+    <link rel="stylesheet" href="{% static 'authz/css/home.css' %}">
+    <title>Recani - Home</title>
+</head>
+<body>
     <header>
-      <div class="logo">
-        <a href="{% url 'authz:home' %}"
-          ><img src="{% static '\authz\pics\logo.jpg' %}" alt="Logo"
-        /></a>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="{% url 'authz:home' %}">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="{% url 'authz:login' %}">Login</a></li>
-          <li><a href="{% url 'authz:signup' %}">Signup</a></li>
-        </ul>
-      </nav>
+        <div class="logo">
+            <a href="{% url 'authz:home' %}">
+                <img src="{% static 'authz/pics/logo.jpg' %}" alt="Logo">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'authz:home' %}">Home</a></li>
+                <li><a href="{% url 'authz:login' %}">Login</a></li>
+                <li><a href="{% url 'authz:signup' %}">Signup</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'authz:user_home' %}">Profile</a></li>
+                {% endif %}
+            </ul>
+        </nav>
     </header>
+
     <main>
-      <section class="welcome">
-        <h1>Welcome to Recani</h1>
-        <p>
-          Discover our amazing recommendation system designed to best fit your
-          expectation's.
-        </p>
-      </section>
+        <section class="welcome">
+            <h1>Welcome to Recani</h1>
+            <p>Discover our amazing recommendation system designed to best fit your expectations.</p>
+        </section>
 
-      <section class="features">
-        <h2>Features</h2>
-        <div class="feature">
-          <p>-> Dynamically search for anime.</p>
-          <p>
-            -> Automatically lead towards the anime you are subconcially thinking
-            about.
-          </p>
-          <p>-> Judge the anime based on the extensive information available.</p>
-        </div>
-      </section>
+        <section class="features">
+            <h2>Features</h2>
+            <div class="feature">
+                <p>-> Dynamically search for anime.</p>
+                <p>-> Automatically lead towards the anime you are subconsciously thinking about.</p>
+                <p>-> Judge the anime based on the extensive information available.</p>
+            </div>
+        </section>
 
-      <section class="cta">
-        <div id="btn-container">
-          <a href="{% url 'authz:signup' %}" class="btn">Sign Up Now</a>
-        </div>
-      </section>
+        <section class="cta">
+            <div id="btn-container">
+                <a href="{% url 'authz:signup' %}" class="btn">Sign Up Now</a>
+            </div>
+        </section>
 
-      <section class="testimonials">
-        <h2>What Our Users Say</h2>
-        <div class="testimonial">
-          <p>"This system is fantastic! Highly recommend it."</p>
-          <p>- manish</p>
-        </div>
-        <div class="testimonial">
-          <p>"A game-changer in recommendations."</p>
-          <p>- manoj</p>
-        </div>
-      </section>
+        <section class="testimonials">
+            <h2>What Our Users Say</h2>
+            <div class="testimonial">
+                <p>"This system is fantastic! Highly recommend it."</p>
+                <p>- Manish</p>
+            </div>
+            <div class="testimonial">
+                <p>"A game-changer in recommendations."</p>
+                <p>- Manoj</p>
+            </div>
+        </section>
 
-      <section class="top-anime-list">
-        <h2>Admins Recommendations</h2>
-        <div id="top-anime-list-container">
-          {% for anime in anime_data %}
-          <div class="anime-block">
-            <img
-              src="{{ anime.imagelink }}"
-              alt="anime pfp" />
-            <div class="anime-name">{{ anime.name }}</div>
-          </div>
-          {% endfor %}
-        </div>
-      </section>
+        <section class="top-anime-list">
+            <h2>Admins Recommendations</h2>
+            <div id="top-anime-list-container">
+                {% for anime in anime_data %}
+                <div class="anime-block">
+                    <a href="{% url 'recani:show_detail' anime.unique_id %}">
+                        <img src="{{ anime.imagelink }}" alt="{{ anime.name }}">
+                    </a>
+                    <div class="anime-name">{{ anime.name }}</div>
+                </div>
+                {% endfor %}
+            </div>
+        </section>
     </main>
+
     <footer>
-      <div class="contact">
-        <h3>Contact Us</h3>
-        <p>Email: info@recani.com</p>
-        <p>Phone: +123 456 7890</p>
-        <p>Address: 123 Recani Street, City, Country</p>
-      </div>
-      <div class="social-media">
-        <h3>Follow Us</h3>
-        <a href="https://facebook.com">Facebook</a>
-        <a href="https://twitter.com">Twitter</a>
-        <a href="https://instagram.com">Instagram</a>
-      </div>
-      <div class="additional-links">
-        <a href="#privacy-policy">Privacy Policy</a>
-        <a href="#terms-of-service">Terms of Service</a>
-      </div>
+        <div class="contact">
+            <h3>Contact Us</h3>
+            <p>Email: info@recani.com</p>
+            <p>Phone: +123 456 7890</p>
+            <p>Address: 123 Recani Street, City, Country</p>
+        </div>
+        <div class="social-media">
+            <h3>Follow Us</h3>
+            <a href="https://facebook.com">Facebook</a>
+            <a href="https://twitter.com">Twitter</a>
+            <a href="https://instagram.com">Instagram</a>
+        </div>
+        <div class="additional-links">
+            <a href="#privacy-policy">Privacy Policy</a>
+            <a href="#terms-of-service">Terms of Service</a>
+        </div>
     </footer>
-  </body>
+</body>
 </html>

@@ -24,20 +24,63 @@
 
     <main>
         <section class="user-info">
-            <h1>Welcome, {{ user.username }}</h1>
-            <p>Email: {{ user.email }}</p>
-            <p>Date Joined: {{ user.date_joined }}</p>
+            <div class="profile-pic">
+                <img src="{% static 'authz/pics/logo.jpg' %}" alt="profile-pic">
+            </div>
+            <div class="basic-details">
+                <h1>Welcome, {{ user.username }}</h1>
+                <p>Email: {{ user.email }}</p>
+                <p>Date Joined: {{ user.date_joined }}</p>
+            </div>
         </section>
 
-        <a href="{% url 'recani:initialization-page' %}">lets gooo</a>
-        
-        <section class="user-actions">
-            <h2>Your Actions</h2>
+        <section class="user-stats">
+            <h2>User Stats</h2>
+            <div class="stats-container">
+                <div class="stat">
+                    <p>Saved Anime</p>
+                    <p>{{ saved_anime|length }}</p>
+                </div>
+                <div class="stat">
+                    <p>Recommendations</p>
+                    <p>{{ recommendations_count }}</p>
+                </div>
+                <div class="stat">
+                    <p>Reviews</p>
+                    <p>{{ reviews_count }}</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="center-button">
+            <a class="recommendations-button" href="{% url 'recani:initialization-page' %}">Get Recommendations</a>
+        </div>
+
+        <section class="recent-activities">
+            <h2>Recent Activities</h2>
             <ul>
-                <li><a href="#">View your profile</a></li>
-                <li><a href="#">Edit your profile</a></li>
-                <li><a href="#">Your Recommendations</a></li>
+                {% for activity in recent_activities %}
+                    <li>{{ activity }}</li>
+                {% empty %}
+                    <li>No recent activities found.</li>
+                {% endfor %}
             </ul>
+        </section>
+
+        <section class="saved-anime">
+            <h2>Saved Anime</h2>
+            <div class="anime-list">
+                {% for saved in saved_anime %}
+                    <div class="anime-item">
+                        <a href="{% url 'recani:show_detail' saved.anime.unique_id %}">
+                            <img src="{{ saved.anime.imagelink }}" alt="{{ saved.anime.name }}" class="anime-image">
+                        </a>
+                        <p class="anime-title">{{ saved.anime.name }}</p>
+                    </div>
+                {% empty %}
+                    <p>No saved anime found.</p>
+                {% endfor %}
+            </div>
         </section>
     </main>
 

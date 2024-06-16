@@ -19,9 +19,8 @@ def UCB(session):
     recommendations = recommend(session, arm)
     round_no += 1
     user_history_dict[f'arm{arm}']['t'] += 1
+    user_history_dict['already_recommended'].extend(recommendations)
 
-    print()
-    print('UCB values: ', ucb_values)
     print()
     print('RECOMMENDATIONS: ', recommendations)
 
@@ -42,7 +41,7 @@ def recommend(session, arm):
 
     arm_shows = user_history_dict[f'arm{arm}']['anime']
     same_shows = len(arm_shows)
-    print('ARM/SHOWS : ', arm, arm_shows, same_shows)
+    print('ARM/SHOWS/SAME_SHOWS : ', arm, arm_shows, same_shows)
 
     for shown in arm_shows:
         distances = similarity_matrix[shown]

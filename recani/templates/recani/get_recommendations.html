@@ -1,64 +1,70 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     {% load static %}
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Show Details</title>
-    <link rel="stylesheet" href="{% static 'recani/css/show_details.css' %}" />
-  </head>
-  <body>
+    <link rel="stylesheet" href="{% static 'recani/css/show_details.css' %}">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
     <div class="show-container">
-      <form method="post" action="{% url 'recani:get_recommendations' %}">
-        {% csrf_token %}
-        {% for show in data %}
-        <div class="show-box">
-          <!-- <div class="show-image-container">
-            <img
-              src="{{ show.imagelink }}"
-              alt="{{ show.name }}"
-              class="show-image" />
-          </div> -->
-          <div class="show-info">
-            <h2>{{ show.name }}</h2>
-            <p>
-              Genre: {% for genre in show.genre.all %}{{ genre.name }}{% if not forloop.last %}, {% endif %}{% endfor %}
-            </p>
-            <p>Demographic: {{ show.demographic.name }}</p>
-            <p>Rating: {{ show.rating.name }}</p>
-            <p>Popularity: {{ show.popularity }}</p>
-            <div class="synopsis-container">
-              <!-- <p class="synopsis">{{ show.synopsis }}</p> -->
-              <button type="button" class="show-more-button">Show More</button>
+        <form method="post" action="{% url 'recani:get_recommendations' %}">
+            {% csrf_token %}
+            {% for show in data %}
+            <div class="show-box">
+                <div class="show-info">
+                    <h2>{{ show.name }}</h2>
+                    <p>Genre: {% for genre in show.genre.all %}{{ genre.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
+                    <p>Demographic: {{ show.demographic.name }}</p>
+                    <p>Rating: {{ show.rating.name }}</p>
+                    <p>Popularity: {{ show.popularity }}</p>
+                    <div class="synopsis-container">
+                        <button type="button" class="show-more-button">Show More</button>
+                    </div>
+                    <label for="user-rating-{{ forloop.counter }}">Your Rating:</label>
+                    <input type="number" name="show{{ forloop.counter }}_rating" min="1" max="5" required>
+                    <a href="{% url 'recani:show_detail' show.unique_id %}" class="details-button">More Details</a>
+                    <button type="button" class="save-button" data-anime-id="{{ show.unique_id }}">Save</button>
+                </div>
             </div>
-            <label for="user-rating-{{ forloop.counter }}">Your Rating:</label>
-            <input type="number" name="show{{ forloop.counter }}_rating" min="1" max="5" required>
-            <a
-              href="{% url 'recani:show_detail' show.unique_id %}"
-              class="details-button"
-              >More Details</a
-            >
-          </div>
-        </div>
-        {% endfor %}
-        <button type="submit" class="submit-button" >next</button>
-      </form>
+            {% endfor %}
+            <button type="submit" class="submit-button">next</button>
+        </form>
     </div>
 
     <script>
-      document.querySelectorAll(".show-more-button").forEach((button) => {
-        button.addEventListener("click", function () {
-          const synopsisContainer = this.previousElementSibling;
-          if (synopsisContainer.style.maxHeight) {
-            synopsisContainer.style.maxHeight = null;
-            this.textContent = "Show More";
-          } else {
-            synopsisContainer.style.maxHeight =
-              synopsisContainer.scrollHeight + "px";
-            this.textContent = "Show Less";
-          }
+        $(document).ready(function() {
+            $('.save-button').on('click', function() {
+                var animeId = $(this).data('anime-id');
+                $.ajax({
+                    url: '{% url "recani:save_anime" %}',
+                    type: 'POST',
+                    data: {
+                        'anime_id': animeId,
+                        'csrfmiddlewaretoken': '{{ csrf_token }}'
+                    },
+                    success: function(response) {
+                        alert(response.message);
+                    },
+                    error: function(response) {
+                        alert('Error saving anime.');
+                    }
+                });
+            });
+
+            $('.show-more-button').on('click', function () {
+                const synopsisContainer = $(this).prev();
+                if (synopsisContainer.css('max-height') === 'none') {
+                    synopsisContainer.css('max-height', '');
+                    $(this).text('Show More');
+                } else {
+                    synopsisContainer.css('max-height', 'none');
+                    $(this).text('Show Less');
+                }
+            });
         });
-      });
     </script>
-  </body>
+</body>
 </html>

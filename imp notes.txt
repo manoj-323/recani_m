@@ -1,5 +1,7 @@
---> genre column in general data has heck ton of entries
 
---> make the unique_id in the table start from 0 rather than one because you see your similarity matrix is n*n but you will be enumerating it so the index
-	that will be generated will be from 0 and onwords see the so if for anime an anime lets say im confused .........................................
-	yup i am right it is as i said keep the indexing of the unique_id from 0.
+--> make a user table storing the saved anime of each user.
+	- show these saved anime to user on his user_home page.
+	- make a option in the get_recommendations page so that while exploring the user can save the anime that he liked and continue.
+
+--> also you could add a feature for each session in which you create a separate page so that user can see his recently recommended anime of
+	the session this can be done by showcasing the already_recommended anime of the user session.

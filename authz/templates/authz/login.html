@@ -1,45 +1,42 @@
-<!-- <a href="{% url 'authz:home' %}"></a>
-<a href="{% url 'authz:signup' %}">signup</a> -->
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     {% load static %}
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="{% static 'authz/css/login.css' %}" />
-  </head>
-  <body>
+    <link rel="stylesheet" href="{% static 'authz/css/login.css' %}">
+</head>
+<body>
     <header>
-      <div class="logo">
-        <a href="{% url 'authz:home' %}"
-          ><img src="{% static '\authz\pics\logo.jpg' %}" alt="Logo"
-        /></a>
-      </div>
-      <nav>
-        <ul>
-          <li><a href="{% url 'authz:home' %}">Home</a></li>
-          <li><a href="#about">About</a></li>
-          <li><a href="#contact">Contact</a></li>
-          <li><a href="{% url 'authz:login' %}">Login</a></li>
-          <li><a href="{% url 'authz:signup' %}">Signup</a></li>
-        </ul>
-      </nav>
+        <div class="logo">
+            <a href="{% url 'authz:home' %}">
+                <img src="{% static 'authz/pics/logo.jpg' %}" alt="Logo">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="{% url 'authz:home' %}">Home</a></li>
+                <li><a href="{% url 'authz:signup' %}">Signup</a></li>
+                {% if user.is_authenticated %}
+                <li><a href="{% url 'authz:user_home' %}">Profile</a></li>
+                {% endif %}
+            </ul>
+        </nav>
     </header>
 
-    <div class="main">
-      <div class="login-container">
-        <div class="login-box">
-          <h2 style="text-align: center">Login</h2>
-          <form method="post">
-            {% csrf_token %} {{ form.as_p }}
-            <div class="input-group">
-              <button type="submit">Login</button>
+    <main>
+        <div class="login-container">
+            <div class="login-box">
+                <h2>Login</h2>
+                <form method="post">
+                    {% csrf_token %} {{ form.as_p }}
+                    <div class="input-group">
+                        <button type="submit">Login</button>
+                    </div>
+                </form>
             </div>
-          </form>
         </div>
-      </div>
-    </div>
-  </body>
+    </main>
+</body>
 </html>
