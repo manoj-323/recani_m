@@ -1,38 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ show.name }}</title>
-    <link rel="stylesheet" href="{% static 'recani/css/show_details.css' %}">
-</head>
-<body>
+    <link rel="stylesheet" href="{% static 'recani/css/show_details.css' %}" />
+  </head>
+  <body style="overflow-x: hidden;">
+    <header>
+      <div class="logo">
+        <a href="{% url 'authz:home' %}">
+          <img src="{% static 'authz/pics/logo.jpg' %}" alt="Logo" />
+        </a>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="{% url 'authz:home' %}">Home</a></li>
+          <li><a href="{% url 'authz:user_home' %}">Profile</a></li>
+          <li><a href="{% url 'authz:signout' %}">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+
     <div class="show-detail-container">
-        <img src="{{ show.imagelink }}" alt="{{ show.name }}" class="show-image">
-        <div class="show-info">
-            <h2>{{ show.name }}</h2>
-            <h2>{{ show.name_english }}</h2>
-            <p>{{ show.synopsis }}</p>
-            <p>Genre: {% for genre in show.genre.all %}{{ genre.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
-            <p>Demographic: {{ show.demographic.name }}</p>
-            <p>Rating: {{ show.rating.name }}</p>
-            <p>Popularity: {{ show.popularity }}</p>
-            <p>Ranked: {{ show.ranked }}</p>
-            <p>Members: {{ show.members }}</p>
-            <p>Total Episodes: {{ show.total_episodes }}</p>
-            <p>Premiered: {{ show.premiered }}</p>
-            <p>Duration per Episode: {{ show.duration_per_ep }}</p>
-            <p>Favorites: {{ show.favorites }}</p>
-            <p>Aired: {{ show.aired }}</p>
-            <p>Studio: {{ show.studio.name }}</p>
-            <p>Watching: {{ show.watching }}</p>
-            <p>Completed: {{ show.completed }}</p>
-            <p>On Hold: {{ show.on_hold }}</p>
-            <p>Dropped: {{ show.dropped }}</p>
-            <p>Plan to Watch: {{ show.plan_to_watch }}</p>
-            <p>Total: {{ show.total }}</p>
+      <div class="show-header">
+        <img
+          src="{{ show.imagelink }}"
+          alt="{{ show.name }}"
+          class="show-image" />
+        <div class="show-title">
+          <h1>{{ show.name }}</h1>
+          <h2>{{ show.name_english }}</h2>
         </div>
+      </div>
+      <div class="show-info">
+        <p>{{ show.synopsis }}</p>
+        <div class="details-grid">
+          <div class="detail-item">
+            <p>
+              <strong>Genre:</strong> {% for genre in show.genre.all %}
+              {{ genre.name }} 
+              {% if not forloop.last %}, {% endif %}{% endfor %}
+            </p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Demographic: </strong>{{ show.demographic.name }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Rating: </strong>{{ show.rating.name }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Popularity:</strong> {{ show.popularity }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Ranked:</strong> {{ show.ranked }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Members:</strong> {{ show.members }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Total Episodes:</strong> {{ show.total_episodes }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Premiered:</strong> {{ show.premiered }}</p>
+          </div>
+          <div class="detail-item">
+            <p>
+              <strong>Duration per Episode:</strong> {{ show.duration_per_ep }}
+            </p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Favorites:</strong> {{ show.favorites }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Aired:</strong> {{ show.aired }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Studio:</strong> {{ show.studio.name }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Watching:</strong> {{ show.watching }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Completed:</strong> {{ show.completed }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>On Hold:</strong> {{ show.on_hold }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Dropped:</strong> {{ show.dropped }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Plan to Watch:</strong> {{ show.plan_to_watch }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Total:</strong> {{ show.total }}</p>
+          </div>
+
+          
+          <div class="detail-item">
+            <p><strong>Scored 1 by:</strong> {{ show.scored_1_by }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Scored 2 by:</strong> {{ show.scored_2_by }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Scored 3 by:</strong> {{ show.scored_3_by }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Scored 4 by:</strong> {{ show.scored_4_by }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Scored 5 by:</strong> {{ show.scored_5_by }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Scored 6 by:</strong> {{ show.scored_6_by }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Scored 7 by:</strong> {{ show.scored_7_by }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Scored 8 by:</strong> {{ show.scored_8_by }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Scored 9 by:</strong> {{ show.scored_9_by }}</p>
+          </div>
+          <div class="detail-item">
+            <p><strong>Scored 10 by:</strong> {{ show.scored_10_by }}</p>
+          </div>
+        </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>

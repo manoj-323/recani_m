@@ -1,70 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Show Details</title>
-    <link rel="stylesheet" href="{% static 'recani/css/show_details.css' %}">
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
-<body>
-    <div class="show-container">
-        <form method="post" action="{% url 'recani:get_recommendations' %}">
-            {% csrf_token %}
-            {% for show in data %}
-            <div class="show-box">
-                <div class="show-info">
-                    <h2>{{ show.name }}</h2>
-                    <p>Genre: {% for genre in show.genre.all %}{{ genre.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
-                    <p>Demographic: {{ show.demographic.name }}</p>
-                    <p>Rating: {{ show.rating.name }}</p>
-                    <p>Popularity: {{ show.popularity }}</p>
-                    <div class="synopsis-container">
-                        <button type="button" class="show-more-button">Show More</button>
-                    </div>
-                    <label for="user-rating-{{ forloop.counter }}">Your Rating:</label>
-                    <input type="number" name="show{{ forloop.counter }}_rating" min="1" max="5" required>
-                    <a href="{% url 'recani:show_detail' show.unique_id %}" class="details-button">More Details</a>
-                    <button type="button" class="save-button" data-anime-id="{{ show.unique_id }}">Save</button>
-                </div>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recommendations</title>
+    <link
+      rel="stylesheet"
+      href="{% static 'recani/css/get_recommendations.css' %}" />
+  </head>
+  <body>
+    <header>
+      <div class="logo">
+        <a href="{% url 'authz:home' %}">
+          <img src="{% static 'authz/pics/logo.jpg' %}" alt="Logo" />
+        </a>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="{% url 'authz:home' %}">Home</a></li>
+          <li><a href="{% url 'authz:user_home' %}">Profile</a></li>
+          <li><a href="{% url 'authz:signout' %}">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="container">
+      <form method="post" action="{% url 'recani:get_recommendations' %}">
+        {% csrf_token %} {% for show in data %}
+        <div class="show-card">
+          <div class="show-thumbnail">
+            <img
+              src="{{ show.imagelink }}"
+              alt="{{ show.name }} image"
+              class="show-image" />
+          </div>
+          <div class="show-details">
+            <h2>{{ show.name }}</h2>
+            <p>
+              <strong>Genre:</strong> {% for genre in show.genre.all %}
+              {{genre.name }}
+              {% if not forloop.last %}, {% endif %}{% endfor %}
+            </p>
+            {% if show.demographic.name|length != 0%}
+            <p><strong>Demographic:</strong> {{ show.demographic.name }}</p>
+            {% endif %}
+            <p><strong>Rating:</strong> {{ show.rating.name }}</p>
+            <p><strong>Popularity:</strong> {{ show.popularity }}</p>
+            <div class="synopsis-container">
+              <p>{{ show.synopsis }}</p>
             </div>
-            {% endfor %}
-            <button type="submit" class="submit-button">next</button>
-        </form>
-    </div>
+            <div class="actions">
+              <label for="user-rating-{{ forloop.counter }}"
+                >Your Rating:</label
+              >
+              <input
+                type="number"
+                name="show{{ forloop.counter }}_rating"
+                min="1"
+                max="5"
+                required />
+              <a
+                href="{% url 'recani:show_detail' show.unique_id %}"
+                class="details-button"
+                >More Details</a
+              >
+              <button
+                type="button"
+                class="save-button"
+                data-anime-id="{{ show.unique_id }}">
+                Save
+              </button>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+        <button type="submit" class="submit-button">Next</button>
+      </form>
+    </main>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function() {
-            $('.save-button').on('click', function() {
-                var animeId = $(this).data('anime-id');
-                $.ajax({
-                    url: '{% url "recani:save_anime" %}',
-                    type: 'POST',
-                    data: {
-                        'anime_id': animeId,
-                        'csrfmiddlewaretoken': '{{ csrf_token }}'
-                    },
-                    success: function(response) {
-                        alert(response.message);
-                    },
-                    error: function(response) {
-                        alert('Error saving anime.');
-                    }
-                });
-            });
-
-            $('.show-more-button').on('click', function () {
-                const synopsisContainer = $(this).prev();
-                if (synopsisContainer.css('max-height') === 'none') {
-                    synopsisContainer.css('max-height', '');
-                    $(this).text('Show More');
-                } else {
-                    synopsisContainer.css('max-height', 'none');
-                    $(this).text('Show Less');
-                }
-            });
+      $(document).ready(function () {
+        $(".save-button").on("click", function () {
+          var animeId = $(this).data("anime-id");
+          $.ajax({
+            url: '{% url "recani:save_anime" %}',
+            type: "POST",
+            data: {
+              anime_id: animeId,
+              csrfmiddlewaretoken: "{{ csrf_token }}",
+            },
+            success: function (response) {
+              alert(response.message);
+            },
+            error: function (response) {
+              alert("Error saving anime.");
+            },
+          });
         });
+
+        $(".show-more-button").on("click", function () {
+          const synopsisContainer = $(this).prev();
+          if (synopsisContainer.css("max-height") === "none") {
+            synopsisContainer.css("max-height", "100px");
+            $(this).text("Show More");
+          } else {
+            synopsisContainer.css("max-height", "none");
+            $(this).text("Show Less");
+          }
+        });
+      });
     </script>
-</body>
+  </body>
 </html>

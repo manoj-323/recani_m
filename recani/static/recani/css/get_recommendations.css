@@ -1,113 +1,174 @@
-body {
-  padding: 0;
+/* Reset some basic elements */
+* {
   margin: 0;
+  padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
-  background-color: #f4f4f4;
 }
 
-.show-container {
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f9;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  justify-content: flex-start;
+  min-height: 100vh;
+  overflow-x: hidden; /* Prevent horizontal scrolling */
 }
 
-.show-box {
+header {
+  background-color: #333;
+  color: #fff;
   display: flex;
-  flex-direction: row;
-  background-color: #fff;
-  padding: 20px;
-  margin-bottom: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border-radius: 10px;
   width: 100%;
-  max-width: 800px;
-  transition: max-height 0.3s ease;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.logo img {
+  height: 50px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 15px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  padding: 5px 10px;
+}
+
+nav a:hover {
+  background-color: #575757;
+  border-radius: 5px;
+}
+
+
+
+main.container {
+  margin-top: 80px;
+  padding: 20px;
+  width: 90%;
+  max-width: 1200px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.show-card {
+  display: flex;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
   overflow: hidden;
-  position: relative;
 }
 
-.show-image-container {
-  flex: 0 0 150px;
+.show-card .show-thumbnail {
+  flex-shrink: 0;
+  width: 150px;
+  margin-right: 20px;
 }
 
-.show-image {
+.show-card .show-thumbnail .show-image {
   width: 100%;
   height: auto;
-  border-radius: 10px;
+  border-radius: 8px;
 }
 
-.show-info {
-  flex: 1;
-  padding-left: 20px;
+.show-card .show-details {
+  padding: 15px;
+  flex-grow: 1;
 }
 
-.synopsis-container {
-  max-height: 100px;
-  overflow: hidden;
-  position: relative;
+.show-card .show-details h2 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 10px;
 }
 
-.synopsis {
-  margin: 10px 0;
+.show-card .show-details p {
+  font-size: 0.9rem;
   color: #666;
+  margin-bottom: 5px;
 }
 
-.show-more-button {
-  background-color: transparent;
-  border: none;
-  color: #007bff;
-  cursor: pointer;
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  padding: 5px;
+.show-card .synopsis-container {
+  max-height: 100px;
+  overflow-y: auto;
+  margin-bottom: 10px;
 }
 
-.details-button {
-  display: inline-block;
+.show-card .actions {
   margin-top: 10px;
-  padding: 10px 20px;
-  background-color: #007bff;
-  color: white;
-  text-decoration: none;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
 }
 
-.details-button:hover {
-  background-color: #0056b3;
+.show-card .actions label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #555;
+}
+
+.show-card .actions input[type="number"] {
+  width: 60px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-bottom: 5px;
+}
+
+.show-card .details-button,
+.show-card .save-button {
+  display: inline-block;
+  margin-right: 10px;
+  padding: 10px 15px;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.show-card .details-button {
+  background: #007bff;
+}
+
+::-webkit-scrollbar{
+  display: none;
+}
+
+.show-card .save-button {
+  background: #28a745;
+}
+
+.show-card .details-button:hover {
+  background: #0056b3;
+}
+
+.show-card .save-button:hover {
+  background: #218838;
 }
 
 .submit-button {
-  display: block;
-  margin: 20px auto;
-  padding: 10px 20px;
-  background-color: #5cb85c;
-  color: white;
+  width: 100%;
+  padding: 15px;
+  background: #5cb85c;
+  color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  font-size: 1rem;
+  margin-top: 20px;
 }
 
 .submit-button:hover {
-  background-color: #4cae4c;
+  background: #4cae4c;
 }
 
-@media (max-width: 600px) {
-  .show-box {
-      flex-direction: column;
-      align-items: center;
-  }
-
-  .show-info {
-      padding-left: 0;
-      text-align: center;
-  }
-
-  .synopsis-container {
-      max-height: 50px;
-  }
-}

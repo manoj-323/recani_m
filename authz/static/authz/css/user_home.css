@@ -2,44 +2,52 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
+    background-color: #f0f0f0;
+    color: #333;
 }
 
 header {
     background-color: #333;
-    color: white;
-    padding: 1rem;
+    color: #fff;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 10px 20px;
 }
 
-header .logo img {
+.logo img {
     height: 50px;
 }
 
 nav ul {
     list-style: none;
-    margin: 0;
-    padding: 0;
     display: flex;
+    gap: 15px;
 }
 
-nav ul li {
-    margin: 0 1rem;
-}
-
-nav ul li a {
-    color: white;
+nav a {
+    color: #fff;
     text-decoration: none;
+    padding: 5px 10px;
+}
+
+nav a:hover {
+    background-color: #575757;
+    border-radius: 5px;
+}
+
+main {
+    padding: 20px;
 }
 
 .user-info {
     display: flex;
     align-items: center;
-    padding: 2rem;
-    background-color: #f4f4f4;
-    border-bottom: 1px solid #ddd;
+    padding: 20px;
+    background-color: #fff;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .profile-pic img {
@@ -50,56 +58,57 @@ nav ul li a {
 }
 
 .basic-details {
-    margin-left: 1.5rem;
+    margin-left: 20px;
 }
 
 .user-stats, .recent-activities, .saved-anime {
-    padding: 2rem;
     background-color: #fff;
-    margin: 1rem;
+    padding: 20px;
+    margin-bottom: 20px;
     border-radius: 10px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 .user-stats h2, .recent-activities h2, .saved-anime h2 {
     text-align: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 20px;
 }
 
 .stats-container {
     display: flex;
     justify-content: space-around;
+    gap: 20px;
 }
 
 .stat {
     background-color: #00bcd4;
-    color: white;
-    padding: 1rem;
+    color: #fff;
+    padding: 20px;
     border-radius: 10px;
     text-align: center;
-    width: 30%;
+    flex: 1;
 }
 
 .stat p:first-child {
     font-size: 1.2rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 10px;
 }
 
 .center-button {
     text-align: center;
-    margin: 2rem 0;
+    margin: 20px 0;
 }
 
 .recommendations-button {
     text-decoration: none;
-    background-color: #00bcd4;
-    color: white;
+    background-color: #007bff;
+    color: #fff;
     padding: 10px 20px;
     border-radius: 5px;
 }
 
 .recommendations-button:hover {
-    background-color: #0097a7;
+    background-color: #0056b3;
 }
 
 .recent-activities ul {
@@ -109,25 +118,25 @@ nav ul li a {
 
 .recent-activities ul li {
     background-color: #f9f9f9;
-    padding: 0.5rem;
+    padding: 10px;
     border-bottom: 1px solid #ddd;
 }
 
 .anime-list {
     display: flex;
     flex-wrap: wrap;
+    gap: 15px;
     justify-content: center;
-    gap: 1rem;
 }
 
 .anime-item {
-    background-color: white;
+    background-color: #fff;
     border: 1px solid #ddd;
     border-radius: 10px;
     overflow: hidden;
     width: 150px;
     text-align: center;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
 }
 
 .anime-item a {
@@ -143,23 +152,21 @@ nav ul li a {
 }
 
 .anime-title {
-    padding: 0.5rem;
+    padding: 10px;
     font-weight: bold;
 }
 
 footer {
     background-color: #333;
-    color: white;
+    color: #fff;
     text-align: center;
-    padding: 1rem 0;
-    bottom: 0;
-    width: 100%;
+    padding: 10px 0;
 }
 
 @media (max-width: 768px) {
     .user-info {
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
     }
 
     .profile-pic img {
@@ -169,21 +176,22 @@ footer {
 
     .basic-details {
         margin-left: 0;
-        margin-top: 1rem;
+        margin-top: 10px;
+        text-align: center;
     }
 
     .stats-container {
         flex-direction: column;
         align-items: center;
+        gap: 10px;
     }
 
     .stat {
         width: 80%;
-        margin-bottom: 1rem;
     }
 
     .anime-item {
-        width: 100px;
+        width: 120px;
     }
 
     .anime-image {
