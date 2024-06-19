@@ -1,91 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
+  <head>
     {% load static %}
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>User Home</title>
-    <link rel="stylesheet" href="{% static 'authz/css/user_home.css' %}">
-</head>
-<body>
+    <link rel="stylesheet" href="{% static 'authz/css/user_home.css' %}" />
+  </head>
+  <body>
     <header>
-        <div class="logo">
-            <a href="{% url 'authz:home' %}">
-                <img src="{% static 'authz/pics/logo.jpg' %}" alt="Logo">
-            </a>
-        </div>
-        <nav>
-            <ul>
-                <li><a href="{% url 'authz:home' %}">Home</a></li>
-                <li><a href="{% url 'authz:signout' %}">Logout</a></li>
-            </ul>
-        </nav>
+      <div class="logo">
+        <a href="{% url 'authz:home' %}">
+          <img src="{% static 'authz/pics/logo.jpg' %}" alt="Logo" />
+        </a>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="{% url 'authz:home' %}">Home</a></li>
+          <li><a href="{% url 'authz:signout' %}">Logout</a></li>
+        </ul>
+      </nav>
     </header>
 
     <main>
-        <section class="user-info">
-            <div class="profile-pic">
-                <img src="{% static 'authz/pics/logo.jpg' %}" alt="Profile Picture">
-            </div>
-            <div class="basic-details">
-                <h1>Welcome, {{ user.username }}</h1>
-                <p>Email: {{ user.email }}</p>
-                <p>Date Joined: {{ user.date_joined }}</p>
-            </div>
-        </section>
-
-        <section class="user-stats">
-            <h2>User Stats</h2>
-            <div class="stats-container">
-                <div class="stat">
-                    <p>Saved Anime</p>
-                    <p>{{ saved_anime|length }}</p>
-                </div>
-                <div class="stat">
-                    <p>Recommendations</p>
-                    <p>{{ recommendations_count }}</p>
-                </div>
-                <div class="stat">
-                    <p>Reviews</p>
-                    <p>{{ reviews_count }}</p>
-                </div>
-            </div>
-        </section>
-
-        <div class="center-button">
-            <a class="recommendations-button" href="{% url 'recani:initialization-page' %}">Get Recommendations</a>
+      <section class="user-info">
+        <div class="profile-pic">
+          <img src="{% static 'authz/pics/logo.jpg' %}" alt="Profile Picture" />
         </div>
+        <div class="basic-details">
+          <h1>Welcome, {{ user.username }}</h1>
+          <p>Email: {{ user.email }}</p>
+          <p>Date Joined: {{ user.date_joined }}</p>
+        </div>
+      </section>
 
-        <section class="recent-activities">
-            <h2>Recent Activities</h2>
-            <ul>
-                {% for activity in recent_activities %}
-                    <li>{{ activity }}</li>
-                {% empty %}
-                    <li>No recent activities found.</li>
-                {% endfor %}
-            </ul>
-        </section>
+      <section class="user-stats">
+        <h2>User Stats</h2>
+        <div class="stats-container">
+          <div class="stat">
+            <p>Saved Anime</p>
+            <p>{{ saved_anime|length }}</p>
+          </div>
+      </section>
 
-        <section class="saved-anime">
-            <h2>Saved Anime</h2>
-            <div class="anime-list">
-                {% for saved in saved_anime %}
-                    <div class="anime-item">
-                        <a href="{% url 'recani:show_detail' saved.anime.unique_id %}">
-                            <img src="{{ saved.anime.imagelink }}" alt="{{ saved.anime.name }}" class="anime-image">
-                        </a>
-                        <p class="anime-title">{{ saved.anime.name }}</p>
-                    </div>
-                {% empty %}
-                    <p>No saved anime found.</p>
-                {% endfor %}
-            </div>
-        </section>
+      <div class="center-button">
+        <a
+          class="recommendations-button"
+          href="{% url 'recani:initialization-page' %}"
+          >Get Recommendations</a
+        >
+      </div>
+
+      <section class="recent-activities">
+        <h2>Recent Activities</h2>
+        <ul>
+          {% if recent_activities %}
+          <div id="top-anime-list-container">
+            {% for anime in recent_activities %}
+            <li>
+              <div class="anime-block">
+                <a href="{% url 'recani:show_detail' anime.unique_id %}">
+                  <img src="{{ anime.imagelink }}" alt="{{ anime.name }}" />
+                </a>
+                <div class="anime-name">{{ anime.name }}</div>
+              </div>
+            </li>
+            {% endfor %}
+          </div>
+          {% else %}
+          <li>No recent activities found.</li>
+          {% endif %}
+        </ul>
+      </section>
+
+      <section class="saved-anime">
+        <h2>Saved Anime</h2>
+        <div class="anime-list">
+          {% for saved in saved_anime %}
+          <div class="anime-item">
+            <a href="{% url 'recani:show_detail' saved.anime.unique_id %}">
+              <img
+                src="{{ saved.anime.imagelink }}"
+                alt="{{ saved.anime.name }}"
+                class="anime-image" />
+            </a>
+            <p class="anime-title">{{ saved.anime.name }}</p>
+          </div>
+          {% empty %}
+          <p>No saved anime found.</p>
+          {% endfor %}
+        </div>
+      </section>
     </main>
 
     <footer>
-        <p>&copy; 2024 Recani. All rights reserved.</p>
+      <p>&copy; 2024 Recani. All rights reserved.</p>
     </footer>
-</body>
+  </body>
 </html>

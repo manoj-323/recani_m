@@ -36,7 +36,7 @@
               class="show-image" />
           </div>
           <div class="show-details">
-            <h2>{{ show.name }}</h2>
+            <h2>{{ show.name_english }}</h2>
             <p>
               <strong>Genre:</strong> {% for genre in show.genre.all %}
               {{genre.name }}
@@ -98,17 +98,6 @@
               alert("Error saving anime.");
             },
           });
-        });
-
-        $(".show-more-button").on("click", function () {
-          const synopsisContainer = $(this).prev();
-          if (synopsisContainer.css("max-height") === "none") {
-            synopsisContainer.css("max-height", "100px");
-            $(this).text("Show More");
-          } else {
-            synopsisContainer.css("max-height", "none");
-            $(this).text("Show Less");
-          }
         });
       });
     </script>

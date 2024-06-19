@@ -70,4 +70,14 @@ def signout(request):
 @login_required
 def user_home(request):
     saved_anime = Saved_anime.objects.filter(user=request.user)
-    return render(request, 'authz/user_home.html', {'saved_anime': saved_anime})
+    recent_activities = request.session.get('user_history_dict', {}).get('already_recommended', [])
+
+    anime_data = []
+    for i in recent_activities:
+        anime_data.append(GeneralData.objects.get(unique_id=i))
+    
+    context = {
+        'saved_anime': saved_anime,
+        'recent_activities': anime_data
+    }
+    return render(request, 'authz/user_home.html', context=context)

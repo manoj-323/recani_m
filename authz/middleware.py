@@ -13,7 +13,7 @@ class Handle404Middleware:
     def process_exception(self, request, exception):
         if isinstance(exception, Http404):
             try:
-                resolve(request.path)  # Check if there's a valid URL pattern for the requested path
+                resolve(request.path)
             except Http404:
                 return self.handle_undefined_path(request)
         return None
@@ -22,4 +22,4 @@ class Handle404Middleware:
         context = {
             'undefined_path': request.path,
         }
-        return render(request, 'authz/404.html', context, status=404)
+        return render(request, '404.html', context, status=404)
