@@ -27,10 +27,7 @@ Recani-M is a sophisticated web application designed to deliver personalized ani
 
 ### Content-Based Filtering
 
-Content-based filtering recommends items based on the attributes of the items and the preferences of the user. In Recani-M, each anime's attributes—such as genres, tags, and descriptions—are used to build a user profile. This profile helps predict which unseen anime the user might enjoy. The recommendation process involves:
-- Extracting features from anime descriptions and metadata.
-- Building a user preference model based on interactions with various anime.
-- Matching user preferences with anime features to generate recommendations.
+Content-based filtering recommends items based on the attributes of the items and the preferences of the user. In Recani-M, each anime's attributes—such as genres, tags, and descriptions—are used to suggest similar anime to the user. This method ensures that recommendations are relevant to the user's tastes.
 
 ### Multi-Armed Bandit Algorithm
 
@@ -73,9 +70,18 @@ To set up Recani-M locally, follow these steps:
 
 ## Project Structure
 
+
+- **authz/**: Handles user authentication and authorization, including:
+  - **models.py**: Defines user models and permissions.
+  - **views.py**: Manages user login, registration, web-homepage and user-profile views.
+  - **urls.py**: Maps URLs for authentication-related views.
+  - **static/**: Static files (CSS, JavaScript, images).
+  - **templates/**: HTML templates for user authentication pages.
+
 - **recani/**: Contains the main application code, including:
   - **models.py**: Defines the database models for anime and user interactions.
   - **views.py**: Handles the logic for rendering web pages and processing user requests.
+  - **recommendation.py**: Handles the logic for content based filtering and multi-armed bandit algorithm.
   - **urls.py**: Maps URLs to views.
   - **templates/**: HTML templates for rendering the web pages.
   - **static/**: Static files (CSS, JavaScript, images).
@@ -83,7 +89,7 @@ To set up Recani-M locally, follow these steps:
 - **recani_m/**: Contains project settings and configurations, including:
   - **settings.py**: Configuration for the Django project.
   - **urls.py**: Root URL configurations.
-
+  
 - **db.sqlite3**: SQLite database file used for development.
 - **manage.py**: Command-line utility for administrative tasks.
 
