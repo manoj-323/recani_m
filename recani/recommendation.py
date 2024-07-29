@@ -2,14 +2,12 @@ import numpy as np
 import pickle
 
 
-
 def UCB(session):
     user_history_dict = session['user_history_dict']
     round_no = session['round_no']
     ucb_values = {}
     for i in range(3):
         t = user_history_dict[f'arm{i+1}']['t']
-        print(t)
         ratings = user_history_dict[f'arm{i+1}']['rating']
         average_rating = sum(ratings) / len(ratings)
         exploration_term = np.sqrt(2*(np.log(round_no))/t)
@@ -21,8 +19,6 @@ def UCB(session):
     user_history_dict[f'arm{arm}']['t'] += 1
     user_history_dict['already_recommended'].extend(recommendations)
 
-    print()
-    print('RECOMMENDATIONS: ', recommendations)
 
     session['user_history_dict'] = user_history_dict
     session['round_no'] = round_no
@@ -41,7 +37,6 @@ def recommend(session, arm):
 
     arm_shows = user_history_dict[f'arm{arm}']['anime']
     same_shows = len(arm_shows)
-    print('ARM/SHOWS/SAME_SHOWS : ', arm, arm_shows, same_shows)
 
     for shown in arm_shows:
         distances = similarity_matrix[shown]

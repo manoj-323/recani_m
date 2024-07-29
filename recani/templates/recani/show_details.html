@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="{% static 'recani/css/show_details.css' %}" />
   </head>
   <body style="overflow-x: hidden;">
-
     <header>
       <div class="logo">
         <a href="{% url 'authz:home' %}">
@@ -24,27 +23,27 @@
       </nav>
     </header>
 
-
     <div class="show-detail-container">
       <div class="show-header">
-        <img
-          src="{{ show.imagelink }}"
-          alt="{{ show.name }}"
-          class="show-image" />
+        <img src="{{ show.imagelink }}" alt="{{ show.name }}" class="show-image" />
         <div class="show-title">
           <h1>{{ show.name }}</h1>
           <h2>{{ show.name_english }}</h2>
+          <button
+            type="button"
+            class="save-button"
+            data-anime-id="{{ show.unique_id }}"
+            data-saved="{{ show.saved|yesno:'true,false' }}">
+            {{ show.saved|yesno:"Unsave,Save" }}
+          </button>
         </div>
       </div>
       <div class="show-info">
         <p>{{ show.synopsis }}</p>
         <div class="details-grid">
+          <!-- Additional details about the show -->
           <div class="detail-item">
-            <p>
-              <strong>Genre:</strong> {% for genre in show.genre.all %}
-              {{ genre.name }} 
-              {% if not forloop.last %}, {% endif %}{% endfor %}
-            </p>
+            <p><strong>Genre:</strong> {% for genre in show.genre.all %}{{ genre.name }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
           </div>
           <div class="detail-item">
             <p><strong>Demographic: </strong>{{ show.demographic.name }}</p>
@@ -68,9 +67,7 @@
             <p><strong>Premiered:</strong> {{ show.premiered }}</p>
           </div>
           <div class="detail-item">
-            <p>
-              <strong>Duration per Episode:</strong> {{ show.duration_per_ep }}
-            </p>
+            <p><strong>Duration per Episode:</strong> {{ show.duration_per_ep }}</p>
           </div>
           <div class="detail-item">
             <p><strong>Favorites:</strong> {{ show.favorites }}</p>
@@ -99,8 +96,6 @@
           <div class="detail-item">
             <p><strong>Total:</strong> {{ show.total }}</p>
           </div>
-
-          
           <div class="detail-item">
             <p><strong>Scored 1 by:</strong> {{ show.scored_1_by }}</p>
           </div>
@@ -134,5 +129,38 @@
         </div>
       </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+      $(document).ready(function () {
+        $(".save-button").on("click", function () {
+          var button = $(this);
+          var animeId = button.data("anime-id");
+          var saved = button.data("saved") === "true";
+
+          $.ajax({
+            url: '{% url "recani:save_anime" %}',
+            type: "POST",
+            data: {
+              anime_id: animeId,
+              csrfmiddlewaretoken: '{{ csrf_token }}',
+            },
+            success: function (response) {
+              if (saved) {
+                button.text("Save");
+                button.data("saved", "false");
+              } else {
+                button.text("Unsave");
+                button.data("saved", "true");
+              }
+              alert(response.message);
+            },
+            error: function (response) {
+              alert("Error saving anime.");
+            },
+          });
+        });
+      });
+    </script>
   </body>
 </html>

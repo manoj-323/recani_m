@@ -5,9 +5,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recommendations</title>
-    <link
-      rel="stylesheet"
-      href="{% static 'recani/css/get_recommendations.css' %}" />
+    <link rel="stylesheet" href="{% static 'recani/css/get_recommendations.css' %}" />
   </head>
   <body>
     <header>
@@ -27,22 +25,20 @@
 
     <main class="container">
       <form method="post" action="{% url 'recani:get_recommendations' %}">
-        {% csrf_token %} {% for show in data %}
+        {% csrf_token %} 
+        {% for show in data %}
         <div class="show-card">
           <div class="show-thumbnail">
-            <img
-              src="{{ show.imagelink }}"
-              alt="{{ show.name }} image"
-              class="show-image" />
+            <img src="{{ show.imagelink }}" alt="{{ show.name }} image" class="show-image" />
           </div>
           <div class="show-details">
             <h2>{{ show.name_english }}</h2>
-            <p>
-              <strong>Genre:</strong> {% for genre in show.genre.all %}
-              {{genre.name }}
-              {% if not forloop.last %}, {% endif %}{% endfor %}
+            <p><strong>Genre:</strong> 
+              {% for genre in show.genre.all %}
+                {{ genre.name }}{% if not forloop.last %}, {% endif %}
+              {% endfor %}
             </p>
-            {% if show.demographic.name|length != 0%}
+            {% if show.demographic.name|length != 0 %}
             <p><strong>Demographic:</strong> {{ show.demographic.name }}</p>
             {% endif %}
             <p><strong>Rating:</strong> {{ show.rating.name }}</p>
@@ -51,25 +47,15 @@
               <p>{{ show.synopsis }}</p>
             </div>
             <div class="actions">
-              <label for="user-rating-{{ forloop.counter }}"
-                >Your Rating:</label
-              >
-              <input
-                type="number"
-                name="show{{ forloop.counter }}_rating"
-                min="1"
-                max="5"
-                required />
-              <a
-                href="{% url 'recani:show_detail' show.unique_id %}"
-                class="details-button"
-                >More Details</a
-              >
-              <button
-                type="button"
-                class="save-button"
-                data-anime-id="{{ show.unique_id }}">
-                Save
+              <label for="user-rating-{{ forloop.counter }}">Your Rating:</label>
+              <input type="number" name="show{{ forloop.counter }}_rating" min="1" max="5" required />
+              <a href="{% url 'recani:show_detail' show.unique_id %}" class="details-button">More Details</a>
+              <button 
+                type="button" 
+                class="save-button" 
+                data-anime-id="{{ show.unique_id }}" 
+                data-saved="{{ show.saved|yesno:'true,false' }}">
+                {{ show.saved|yesno:"Unsave,Save" }}
               </button>
             </div>
           </div>
@@ -83,15 +69,25 @@
     <script>
       $(document).ready(function () {
         $(".save-button").on("click", function () {
-          var animeId = $(this).data("anime-id");
+          var button = $(this);
+          var animeId = button.data("anime-id");
+          var saved = button.data("saved") === "true";
+
           $.ajax({
             url: '{% url "recani:save_anime" %}',
             type: "POST",
             data: {
               anime_id: animeId,
-              csrfmiddlewaretoken: "{{ csrf_token }}",
+              csrfmiddlewaretoken: '{{ csrf_token }}',
             },
             success: function (response) {
+              if (saved) {
+                button.text("Save");
+                button.data("saved", "false");
+              } else {
+                button.text("Unsave");
+                button.data("saved", "true");
+              }
               alert(response.message);
             },
             error: function (response) {

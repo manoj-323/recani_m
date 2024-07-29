@@ -29,18 +29,15 @@ def home(request):
     
     if request.method == 'POST':
         data = json.loads(request.body)
-        # Use helper function to initialize session data
         initialize_user_history(request.session, data)
 
         return JsonResponse({'status': 'success', 'message': 'Data processed successfully'})
-
 
 
 @login_required
 def get_recommendations(request):
 
     if request.method == 'GET':
-        print('GET/get_recommendations ================')
         recommendations = UCB(request.session)
         context = {
             'data' : []
@@ -49,16 +46,13 @@ def get_recommendations(request):
         for anime in recommendations:
             context['data'].append(GeneralData.objects.filter(unique_id=anime).first())
 
-        print(request.session['user_history_dict'])
         
         return render(request, 'recani/get_recommendations.html', context=context)
     else :
-        print('POST/get_recommendations ================')
         show1_rating = int(request.POST.get('show1_rating'))
         show2_rating = int(request.POST.get('show2_rating'))
         show3_rating = int(request.POST.get('show3_rating'))
 
-        print(show1_rating, show2_rating, show3_rating)
 
         update_user_history(request.session, show1_rating, show2_rating, show3_rating)
         
@@ -81,16 +75,16 @@ def show_detail(request, id):
 
 @login_required
 def save_anime(request):
+    print("here")
     if request.method == 'POST':
         anime_id = request.POST.get('anime_id')
         anime = GeneralData.objects.filter(unique_id=anime_id).first()
-
         if anime:
-            Saved_anime.objects.get_or_create(user=request.user, anime=anime)
+            saved_anime, created = Saved_anime.objects.get_or_create(user=request.user, anime=anime)
+            if not created:
+                saved_anime.delete()
+                return JsonResponse({'message': 'Anime unsaved successfully!'})
             return JsonResponse({'message': 'Anime saved successfully!'})
-        else:
-            return JsonResponse({'message': 'Anime not found.'}, status=404)
+        return JsonResponse({'message': 'Anime not found.'}, status=404)
 
     return JsonResponse({'message': 'Invalid request.'}, status=400)
-
-

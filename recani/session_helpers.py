@@ -37,8 +37,6 @@ def initialize_user_history(session, data):
         user_history_dict['already_recommended'].extend([show1, show2, show3])
 
         session['user_history_dict'] = user_history_dict
-        print(user_history_dict)
-        print('--------------------session created----------------')
 
 def update_user_history(session, show1_rating, show2_rating, show3_rating):
     user_history_dict = session['user_history_dict']
@@ -46,4 +44,3 @@ def update_user_history(session, show1_rating, show2_rating, show3_rating):
     user_history_dict[f'arm{arm}']['rating'].extend([show1_rating, show2_rating, show3_rating])
 
     session['user_history_dict'] = user_history_dict
-    print(user_history_dict)
