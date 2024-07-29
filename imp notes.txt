@@ -1,7 +1,0 @@
-
---> make a user table storing the saved anime of each user.
-	- show these saved anime to user on his user_home page.
-	- make a option in the get_recommendations page so that while exploring the user can save the anime that he liked and continue.
-
---> also you could add a feature for each session in which you create a separate page so that user can see his recently recommended anime of
-	the session this can be done by showcasing the already_recommended anime of the user session.
