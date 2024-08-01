@@ -1,6 +1,6 @@
-# Recani-M: Anime Recommendation System
+# Recani_m: Anime Recommendation System
 
-Recani-M is a sophisticated web application designed to deliver personalized anime recommendations using a combination of content-based filtering and multi-armed bandit algorithms. This unique approach allows the system to continuously refine its suggestions based on user interactions, offering a more tailored and engaging experience over time.
+Recani_m is a sophisticated web application designed to deliver personalized anime recommendations using a combination of content-based filtering and multi-armed bandit algorithms. This unique approach allows the system to continuously refine its suggestions based on user interactions, offering a more tailored and engaging experience over time.
 
 ## Table of Contents
 
@@ -39,7 +39,7 @@ The algorithm operates by treating each recommendation as a "bandit" and dynamic
 
 ## Installation
 
-To set up Recani-M locally, follow these steps:
+To set up Recani_m locally, follow these steps:
 
 1. **Clone the repository:**
    ```sh
